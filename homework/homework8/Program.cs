@@ -21,17 +21,17 @@
 //     return newArray;
 // }
 
-void Show2DArray(int[,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
-    {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            Console.Write($"{array[i, j]} ");
-        }
-        Console.WriteLine();
-    }
-}
+// void Show2DArray(int[,] array)
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         for (int j = 0; j < array.GetLength(1); j++)
+//         {
+//             Console.Write($"{array[i, j]} ");
+//         }
+//         Console.WriteLine();
+//     }
+// }
 
 // int[,] DescendingSortRowsArray (int[,] array)
 // {
@@ -256,6 +256,42 @@ void Show2DArray(int[,] array)
 // 11 16 15 06
 // 10 09 08 07
 
+
+void Show2DArrayWithZero(int[,] array2D)
+{
+    int FindDigitMaxNum(int[,] array)
+    {
+        int maxNum = array[0,0];
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+                { if (array[i,j] > maxNum) maxNum = array[i,j]; }
+        }
+        int DigitMaxNum = 1;
+        while (maxNum > 9)
+        {
+            maxNum = maxNum/10;
+            DigitMaxNum++;
+        }
+        return DigitMaxNum;
+    }
+    int maxNumDigit = FindDigitMaxNum(array2D);
+    for (int i = 0; i < array2D.GetLength(0); i++)
+    {
+        for (int j = 0; j < array2D.GetLength(1); j++)
+        {
+            int temp = array2D[i,j];
+            int numDigit = 1;
+            while (temp > 9) { temp = temp/10; numDigit++; }
+            for (int k = 0; k < (maxNumDigit-numDigit); k++)
+            { Console.Write("0"); }
+            Console.Write($"{array2D[i, j]} ");
+        }
+        Console.WriteLine();
+    }
+}
+
+
 int [,] CreateSpiralArray(int rows, int columns, int minValue)
 {
     int [,] array = new int [rows,columns];
@@ -308,5 +344,5 @@ Console.WriteLine("Введите минимальное значение:");
 int min = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine();
 int[,] newRandomArray = CreateSpiralArray(numberOfLines, numberOfColumns, min);
-Show2DArray(newRandomArray);
+Show2DArrayWithZero(newRandomArray);
 Console.WriteLine();
